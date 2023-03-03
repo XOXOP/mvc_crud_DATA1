@@ -1,4 +1,5 @@
-package web;
+package web.model;
+
 
 public class Car {
     private String brand_name;

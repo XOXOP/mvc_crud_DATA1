@@ -1,14 +1,19 @@
-package web;
+package web.service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import web.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
-public class Service1 {
+public class Service1 implements Service{
+    @Autowired
+    Service service;
+
     static List<Car> cars = new ArrayList<>();
 
     public Service1() {
@@ -16,6 +21,9 @@ public class Service1 {
     }
 
     public void createCars() {
+
+
+
         Car car1 = new Car("ZIL", "130", 1962);
         Car car2 = new Car("Lorraine-Dietrich", "CR-2", 1905);
         Car car3 = new Car("RAF", "2203", 1976);
@@ -28,19 +36,19 @@ public class Service1 {
         cars.add(car5);
     }
 
+    @Override
+    public List<Car> getCars(Integer count) {
+        List<Car>  cars1 = new ArrayList<>();
+        if (count >= 5) {
 
+            cars1 = cars.stream().toList();
+        } else if (count < 0) {
+            cars1 = null;
 
+        } else cars1 = cars.stream().limit(count).toList();
 
-//    public static List<Car> getCars(int count) {
-//        if (count == 0) {
-//            return cars;
+        return cars1;
+    }
 
-        public static List<Car> getCars(Integer count) {
-            int tmp = (count != null) ? count : 5;
-            return cars.subList(0, tmp);
-        }
-
-
-      // return cars.stream().limit(count).collect(Collectors.toList());
 
 }
