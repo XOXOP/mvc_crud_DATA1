@@ -48,7 +48,7 @@ public class AppConfig {
     {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(getDataSource());
-        emf.setPackagesToScan("web.model");
+        emf.setPackagesToScan("web.entity");
         emf.setJpaVendorAdapter(vendorAdapter());
 
         Properties properties = new Properties();

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирвать пользователя</title>
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Редактирвать пользователя</h1>
+  <hr>
+  <h2>Update User</h2>
+
+<form th:method="PATCH" th:action="@{/{id}/updateUser(id=${(userList.getId())})}" th:object="${userList}">
+
+  <!-- Add hidden form field to handle update -->
+  <input type="hidden" th:field="*{id}" />
+
+  <label for="firstName">Имя</label>
+  <input type="text" th:field="*{firstName}" id="firstName"
+         class="form-control mb-4 col-4">
+
+  <label for="lastName" >Фамилия</label>
+  <input type="text" th:field="*{surname}" id="lastName"
+         class="form-control mb-4 col-4">
+
+
+  <label for="email">Хобби</label>
+  <input type="text" th:field="*{hobby}" id="email"
+         class="form-control mb-4 col-4">
+  <button type="submit" class="btn btn-info col-2"> Update User</button>
+</form>
+<hr>
+</div>
+</body>
+</html>

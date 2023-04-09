@@ -1,15 +1,6 @@
 package web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import web.model.User;
-import web.service.UserService;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,27 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import web.model.User;
+
+import web.entity.User;
 import web.service.UserService;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UserController {
 
-//	@GetMapping(value = "/")
-//	public String printWelcome(ModelMap model) {
-//		List<String> messages = new ArrayList<>();
-//		messages.add("Hello!");
-//		messages.add("I'm Spring MVC application");
-//		messages.add("5.2.0 version by sep'19 ");
-//		model.addAttribute("messages", messages);
-//		return "index";
-//	}
-@Autowired
-private UserService userService;
+	@Autowired
+	private UserService userService;
 
 	public UserController(UserService userService) {
 		this.userService = userService;
@@ -46,13 +26,13 @@ private UserService userService;
 	@RequestMapping(value = "/")
 	public String showAllUsers(ModelMap modelUser) {
 		modelUser.addAttribute("userList", userService.getUsers());
-		return "users";
+		return "index";
 	}
 	@RequestMapping(value = "/addNewUser")
 	public String addNewUser(ModelMap modelUser) {
 		User addUser = new User();
 		modelUser.addAttribute("userList", addUser);
-		return "addUser";
+		return "newemployee";
 	}
 	@RequestMapping(value = "/saveUser")
 	public String saveUser(@ModelAttribute("userList") User userSave) {
@@ -68,13 +48,11 @@ private UserService userService;
 	@RequestMapping(value = "/{id}/editUser")
 	public String editUser(Model modelUser, @PathVariable("id") Long idEdit) {
 		modelUser.addAttribute("userList", userService.findUser(idEdit));
-		return "editUser";
+		return "update";
 	}
 	@RequestMapping(value = "/{id}/updateUser")
 	public String updateUser(@ModelAttribute("userList") User userUpdate, @PathVariable("id") Long idUpdate) {
 		userService.updateUser(userUpdate);
 		return "redirect:/";
 	}
-
-
 }
